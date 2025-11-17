@@ -1,11 +1,11 @@
-# 😎 Slawinski Web Server – The Chill Deploy Machine
+# 🚀 Web Server – The Chill Deploy Machine
 
 Welcome to the repo where the magic happens.  
 This is the home of a **corporate-looking website with a not-so-corporate personality**, deployed automatically to both **Azure VM** and **GitHub Pages** — because why choose one when you can flex with two?
 
 ---
 
-## 🚀 What This Project Does
+## ? What This Project Does
 
 Whenever you push something to the **main** branch:
 
