@@ -1,79 +1,100 @@
-
-
 <!DOCTYPE html>
-<html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Slawinski Website - CI/CD no Azure</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slawinski Web Server</title>
+
     <style>
-      body {
-        font-family: Arial, Helvetica, sans-serif;
-        max-width: 900px;
-        margin: 40px auto;
-        line-height: 1.6;
-      }
-      code {
-        background: #f3f3f3;
-        padding: 2px 4px;
-        border-radius: 3px;
-      }
-      pre {
-        background: #f3f3f3;
-        padding: 10px;
-        border-radius: 4px;
-        overflow-x: auto;
-      }
-      h1, h2 {
-        color: #333;
-      }
-      ol {
-        padding-left: 20px;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1f1f1f, #3d3d3d);
+            color: #ffffff;
+            text-align: center;
+        }
+
+        header {
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #00e1ff;
+        }
+
+        h2 {
+            font-weight: normal;
+            color: #cccccc;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1rem;
+            color: white;
+            background: #00e1ff;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #00b5cc;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
     </style>
-  </head>
-  <body>
-    <h1>Slawinski Website - CI/CD no Azure</h1>
-    <p>
-      Este site está a ser servido por uma máquina virtual Ubuntu no Azure.
-      O conteúdo desta página é atualizado automaticamente através de um workflow
-      do <strong>GitHub Actions</strong>.
-    </p>
+</head>
 
-    <h2>Como funciona o deploy</h2>
-    <ol>
-      <li>Gero um par de chaves SSH no meu PC (<code>github-deploy</code>).</li>
-      <li>
-        Coloco a chave <strong>pública</strong> na VM, em
-        <code>~/.ssh/authorized_keys</code>, para o utilizador
-        <code>gestor</code>.
-      </li>
-      <li>
-        Converto a chave <strong>privada</strong> para Base64 e guardo num
-        secret do GitHub chamado <code>DEPLOY_KEY</code>, dentro do Environment
-        <code>TESTE</code>.
-      </li>
-      <li>
-        O ficheiro <code>.github/workflows/blank.yml</code> é o workflow de
-        CI/CD: em cada commit na branch <code>main</code>, ele:
-        <ol>
-          <li>Decodifica o conteúdo de <code>DEPLOY_KEY</code> para um ficheiro de chave.</li>
-          <li>Conecta via SSH na VM (porta 22, utilizador <code>gestor</code>).</li>
-          <li>Instala ou atualiza o Apache.</li>
-          <li>Limpa o diretório <code>/var/www/html</code>.</li>
-          <li>Copia os ficheiros deste repositório para a VM.</li>
-          <li>Reinicia o Apache para servir a nova versão do site.</li>
-        </ol>
-      </li>
-      <li>
-        Quando abro <code>http://&lt;IP_da_VM&gt;</code> no navegador,
-        vejo sempre a versão mais recente do projeto.
-      </li>
-    </ol>
+<body>
+    <header>
+        <h1>Slawinski Website</h1>
+        <h2>Deploy Automático via GitHub Actions → Azure VM</h2>
+    </header>
 
-    <p>
-      Para atualizar o site, basta alterar algum ficheiro (por exemplo,
-      este <code>index.html</code>) e fazer um commit na branch
-      <code>main</code>. O resto é automático.
-    </p>
-  </body>
+    <div class="container">
+        <p>
+            Este website está a correr numa máquina virtual Linux (Ubuntu) hospedada na Azure
+            e atualizado automaticamente através de um pipeline de CI/CD com GitHub Actions.
+        </p>
+
+        <p>
+            Sempre que um novo commit é feito no branch <strong>main</strong>, o conteúdo é enviado
+            automaticamente para este servidor.
+        </p>
+
+        <a class="btn" href="https://github.com" target="_blank">
+            Ver o Repositório
+        </a>
+    </div>
+
+    <footer>
+        © 2025 Slawinski Web Server — Powered by Azure & GitHub Actions
+    </footer>
+</body>
 </html>
