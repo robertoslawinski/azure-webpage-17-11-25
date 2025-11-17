@@ -1,11 +1,85 @@
+
+---
+
+## 🌐 `index.html`
+
+Se quiser um `index.html` bem explicativo, pode usar este:
+
+```html
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-  <meta charset="UTF-8">
-  <h1>Slawinski Website - Primeiro deploy automático 🎯</h1>
-</head>
-<body>
-  <h1>Slawinski Website - Deploy automático via GitHub Actions</h1>
-  <p>Se estás a ver esta página na VM, o CI/CD está a funcionar! 🚀</p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Slawinski Website - CI/CD no Azure</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        max-width: 900px;
+        margin: 40px auto;
+        line-height: 1.6;
+      }
+      code {
+        background: #f3f3f3;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+      pre {
+        background: #f3f3f3;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      h1, h2 {
+        color: #333;
+      }
+      ol {
+        padding-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Slawinski Website - CI/CD no Azure</h1>
+    <p>
+      Este site está a ser servido por uma máquina virtual Ubuntu no Azure.
+      O conteúdo desta página é atualizado automaticamente através de um workflow
+      do <strong>GitHub Actions</strong>.
+    </p>
+
+    <h2>Como funciona o deploy</h2>
+    <ol>
+      <li>Gero um par de chaves SSH no meu PC (<code>github-deploy</code>).</li>
+      <li>
+        Coloco a chave <strong>pública</strong> na VM, em
+        <code>~/.ssh/authorized_keys</code>, para o utilizador
+        <code>gestor</code>.
+      </li>
+      <li>
+        Converto a chave <strong>privada</strong> para Base64 e guardo num
+        secret do GitHub chamado <code>DEPLOY_KEY</code>, dentro do Environment
+        <code>TESTE</code>.
+      </li>
+      <li>
+        O ficheiro <code>.github/workflows/blank.yml</code> é o workflow de
+        CI/CD: em cada commit na branch <code>main</code>, ele:
+        <ol>
+          <li>Decodifica o conteúdo de <code>DEPLOY_KEY</code> para um ficheiro de chave.</li>
+          <li>Conecta via SSH na VM (porta 22, utilizador <code>gestor</code>).</li>
+          <li>Instala ou atualiza o Apache.</li>
+          <li>Limpa o diretório <code>/var/www/html</code>.</li>
+          <li>Copia os ficheiros deste repositório para a VM.</li>
+          <li>Reinicia o Apache para servir a nova versão do site.</li>
+        </ol>
+      </li>
+      <li>
+        Quando abro <code>http://&lt;IP_da_VM&gt;</code> no navegador,
+        vejo sempre a versão mais recente do projeto.
+      </li>
+    </ol>
+
+    <p>
+      Para atualizar o site, basta alterar algum ficheiro (por exemplo,
+      este <code>index.html</code>) e fazer um commit na branch
+      <code>main</code>. O resto é automático.
+    </p>
+  </body>
 </html>
