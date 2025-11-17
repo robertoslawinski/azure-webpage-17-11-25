@@ -10,7 +10,16 @@ jobs:
 
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Verificar se o secret DEPLOY_KEY está definido
+        run: |
+          if [ -z "${{ secrets.DEPLOY_KEY }}" ]; then
+            echo "ERRO: DEPLOY_KEY está VAZIO."
+            exit 1
+          else
+            echo "DEPLOY_KEY está DEFINIDO."
+          fi
 
       - name: Configurar chave SSH
         uses: webfactory/ssh-agent@v0.9.0
@@ -20,7 +29,5 @@ jobs:
       - name: Instalar Apache e publicar site
         run: |
           ssh -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo apt update && sudo apt install -y apache2"
-
           scp -o StrictHostKeyChecking=no -r ./ gestor@74.161.42.40:/var/www/html/
-
           ssh -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo chown -R www-data:www-data /var/www/html && sudo systemctl restart apache2"
