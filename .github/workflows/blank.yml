@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: TESTE   # Usa os secrets do Environment TESTE
+    environment: TESTE   # usar os secrets do Environment TESTE
 
     steps:
       - name: Checkout do código
@@ -23,11 +23,27 @@ jobs:
           HOST=${{ secrets.SSH_HOST }}
           USER=${{ secrets.SSH_USER }}
 
-          # Garante que o Apache está instalado
-          ssh -o StrictHostKeyChecking=no $USER@$HOST "sudo apt update && sudo apt install -y apache2"
+          echo "➡️ Atualizando pacotes e garantindo Apache instalado..."
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "\
+            sudo apt update && \
+            sudo apt install -y apache2 \
+          "
 
-          # Copia todos os ficheiros do repositório para /var/www/html
-          scp -o StrictHostKeyChecking=no -r ./ $USER@$HOST:/var/www/html/
+          echo "➡️ Criando pasta temporária no servidor..."
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "\
+            rm -rf /home/$USER/site-temp && \
+            mkdir -p /home/$USER/site-temp \
+          "
 
-          # Ajusta permissões e reinicia o Apache
-          ssh -o StrictHostKeyChecking=no $USER@$HOST "sudo chown -R www-data:www-data /var/www/html && sudo systemctl restart apache2"
+          echo "➡️ Copiando arquivos do repositório para a pasta temporária..."
+          scp -o StrictHostKeyChecking=no -r ./ $USER@$HOST:/home/$USER/site-temp/
+
+          echo "➡️ Movendo arquivos para /var/www/html com sudo..."
+          ssh -o StrictHostKeyChecking=no $USER@$HOST "\
+            sudo rm -rf /var/www/html/* && \
+            sudo cp -r /home/$USER/site-temp/* /var/www/html/ && \
+            sudo chown -R www-data:www-data /var/www/html && \
+            rm -rf /home/$USER/site-temp \
+          "
+
+          echo "✅ Deploy concluído!"
