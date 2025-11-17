@@ -2,12 +2,12 @@ name: CI/CD Website on VM do Azure
 
 on:
   push:
-    branches: [ "main" ]   # branch padrão do repositório novo
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: TESTE     # mesmo nome do Environment
+    environment: TESTE
 
     steps:
       - name: Checkout do código
@@ -20,8 +20,12 @@ jobs:
 
       - name: Copiar ficheiros para a VM
         run: |
-          rsync -avz --delete ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
 
       - name: Reiniciar o Apache
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart apache2"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart apache2"
