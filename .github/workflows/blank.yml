@@ -12,10 +12,12 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Decodificar chave privada para arquivo
+      - name: Criar ficheiro de chave privada
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" | base64 -d > ~/.ssh/deploy_key
+          cat > ~/.ssh/deploy_key << 'EOF'
+          ${{ secrets.DEPLOY_KEY }}
+          EOF
           chmod 600 ~/.ssh/deploy_key
 
       - name: Instalar Apache e publicar site
