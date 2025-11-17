@@ -1,100 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slawinski Web Server</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slawinski | Corporate Web Server</title>
 
     <style>
         body {
             margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1f1f1f, #3d3d3d);
-            color: #ffffff;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #0d1b2a;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Hero section */
+        .hero {
             text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1b263b, #415a77);
+            color: white;
         }
 
-        header {
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(8px);
+        .hero h2 {
+            font-size: 2.6rem;
+            margin-bottom: 15px;
+            font-weight: 600;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: #00e1ff;
-        }
-
-        h2 {
-            font-weight: normal;
-            color: #cccccc;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        p {
+        .hero p {
             font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            max-width: 650px;
+            margin: auto;
+            opacity: 0.85;
         }
 
+        /* Main container */
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        }
+
+        .container h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #1b263b;
+        }
+
+        .container p {
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Button */
         .btn {
             display: inline-block;
-            padding: 12px 25px;
-            font-size: 1rem;
+            margin-top: 25px;
+            padding: 12px 28px;
+            background-color: #1b263b;
             color: white;
-            background: #00e1ff;
-            border-radius: 6px;
             text-decoration: none;
-            transition: 0.3s;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s;
         }
 
         .btn:hover {
-            background: #00b5cc;
+            background-color: #0d1b2a;
         }
 
+        /* Footer */
         footer {
+            text-align: center;
             margin-top: 60px;
             padding: 20px;
             font-size: 0.9rem;
-            opacity: 0.7;
+            color: #666;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Slawinski Website</h1>
-        <h2>Deploy Automático via GitHub Actions → Azure VM</h2>
-    </header>
+
+    <div class="navbar">
+        <h1>Slawinski</h1>
+    </div>
+
+    <section class="hero">
+        <h2>Corporate Web Server</h2>
+        <p>Automated CI/CD deployment from GitHub Actions to an Azure Virtual Machine.</p>
+    </section>
 
     <div class="container">
+        <h3>About This Server</h3>
         <p>
-            Este website está a correr numa máquina virtual Linux (Ubuntu) hospedada na Azure
-            e atualizado automaticamente através de um pipeline de CI/CD com GitHub Actions.
+            This website is hosted on a secure Linux Virtual Machine running on Microsoft Azure.
+            All updates are deployed automatically via a continuous delivery pipeline using GitHub Actions.
         </p>
 
         <p>
-            Sempre que um novo commit é feito no branch <strong>main</strong>, o conteúdo é enviado
-            automaticamente para este servidor.
+            Every time a new commit is pushed to the <strong>main</strong> branch, the workflow triggers a secure
+            SSH deployment process, updates the Apache web root, and publishes the latest version of the site.
         </p>
 
-        <a class="btn" href="https://github.com" target="_blank">
-            Ver o Repositório
-        </a>
+        <a class="btn" href="https://github.com" target="_blank">View GitHub Repository</a>
     </div>
 
     <footer>
-        © 2025 Slawinski Web Server — Powered by Azure & GitHub Actions
+        © 2025 Slawinski Technologies — All Rights Reserved
     </footer>
+
 </body>
 </html>
