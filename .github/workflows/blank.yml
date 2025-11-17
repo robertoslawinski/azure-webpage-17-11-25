@@ -6,29 +6,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-    - name: Configurar chave SSH
-      run: |
-        mkdir -p ~/.ssh
-        cat > ~/.ssh/deploy_key << 'EOF'
-        ${{ secrets.DEPLOY_KEY }}
-        EOF
-        chmod 600 ~/.ssh/deploy_key
-        ssh-keyscan -H 74.161.42.40 >> ~/.ssh/known_hosts
+      - name: Configurar chave SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 74.161.42.40 >> ~/.ssh/known_hosts
 
-    - name: Instalar Apache e publicar site
-      run: |
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo apt update && sudo apt install -y apache2"
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo rm -rf /var/www/html/*"
-        scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r ./ gestor@74.161.42.40:/home/gestor/site-temp/
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo cp -r /home/gestor/site-temp/* /var/www/html/ && sudo rm -rf /home/gestor/site-temp"
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo systemctl restart apache2"
+      - name: Instalar Apache e publicar site
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo apt update && sudo apt install -y apache2"
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo rm -rf /var/www/html/*"
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "echo 'Slawinski Website - Deploy via GitHub Actions' | sudo tee /var/www/html/index.html > /dev/null"
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo systemctl restart apache2"
 
-    - name: Post Checkout do código
-      run: echo "Deploy terminado!"
+      - name: Finalizar
+        run: echo "Deploy concluído com sucesso (se todos os passos acima estiverem verdes)."
