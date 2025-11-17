@@ -9,20 +9,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v3
+      - name: Checkout do código
+        uses: actions/checkout@v3
 
-    - name: Decodificar chave privada para arquivo
-      run: |
-        echo "${{ secrets.DEPLOY_KEY }}" | base64 -d > ~/.ssh/deploy_key
-        chmod 600 ~/.ssh/deploy_key
+      - name: Decodificar chave privada para arquivo
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
 
-    - name: Instalar Apache e publicar site
-      run: |
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo apt update && sudo apt install -y apache2"
+      - name: Instalar Apache e publicar site
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo apt update && sudo apt install -y apache2"
 
-        # Copiar arquivos do repositório para a pasta do Apache
-        scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r ./ gestor@74.161.42.40:/var/www/html/
+          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no -r ./ gestor@74.161.42.40:/var/www/html/
 
-        # Ajustar permissões e reiniciar Apache
-        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo chown -R www-data:www-data /var/www/html && sudo systemctl restart apache2"
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no gestor@74.161.42.40 "sudo chown -R www-data:www-data /var/www/html && sudo systemctl restart apache2"
