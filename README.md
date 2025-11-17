@@ -1,81 +1,62 @@
-:
+# 😎 Slawinski Web Server – The Chill Deploy Machine
 
-😎 Slawinski Web Server – The Chill Deploy Machine
-Welcome to the repo where the magic happens.
-This is the home of a corporate-looking website with a not-so-corporate personality, deployed automatically to both Azure VM and GitHub Pages — because why choose one when you can flex with two?
+Welcome to the repo where the magic happens.  
+This is the home of a **corporate-looking website with a not-so-corporate personality**, deployed automatically to both **Azure VM** and **GitHub Pages** — because why choose one when you can flex with two?
 
-🚀 What This Project Does
-Whenever you push something to the main branch:
+---
 
+## 🚀 What This Project Does
 
-GitHub goes: “Oh, you changed something again?”
+Whenever you push something to the **main** branch:
 
+1. GitHub goes: “Oh, you changed something again?”  
+2. GitHub Actions springs into action, SSHs into an Azure VM, and updates the site like a loyal robot butler 🤖  
+3. GitHub Pages mirrors the site and proudly says: “Look, I can host it too!”
 
-GitHub Actions springs into action (pun 100% intended), SSHs into an Azure VM, and updates the site like a loyal robot butler 🤖
+✨ **1 commit = 2 deploys = 0 drama**
 
+---
 
-GitHub Pages mirrors the site and whispers: “Look, I can host it too!”
+## 🎯 Goal
 
-
-In short:
-✨ 1 commit = 2 deploys = 0 drama
-
-🎯 Goal
 Create a clean corporate website and give it a deployment pipeline that’s so automatic it feels like cheating.
-Spoiler: it’s not.
-But it does feel awesome.
 
-🧰 Tech Stack
+Spoiler: it’s not.  
+But it *does* feel awesome.
 
+---
 
-HTML/CSS (corporate look, startup soul)
+## 🧰 Tech Stack
 
+- **HTML/CSS**  
+- **GitHub Actions**  
+- **Azure VM + Apache**  
+- **GitHub Pages**
 
-GitHub Actions (your new employee of the month)
+---
 
+## 🔌 Automatic Deploy Workflow
 
-Azure VM + Apache (doing the heavy lifting)
+Every push triggers:
 
+- Azure VM deployment ✨  
+- GitHub Pages deployment ✨  
+- Zero manual work required ✨
 
-GitHub Pages (the fancy static mirror)
+---
 
+## 🌐 Live Demo
 
+**Azure VM:**  
+http://74.161.42.40  
 
-🔌 Automatic Deploy Workflow
-Every time you push:
-
-
-Azure VM updates itself ✨
-
-
-GitHub Pages updates itself ✨
-
-
-You do absolutely nothing ✨
-
-
-Productivity skyrockets 🚀
-
-
-
-🌐 Live Demo
-Azure VM:
-http://74.161.42.40
-GitHub Pages:
+**GitHub Pages:**  
 https://robertoslawinski.github.io/azure-webpage-17-11-25/
 
-🧙 Author
-Built by Slawinski — now officially a Cloud Wizard, CI/CD Tamer, and Person Who No Longer Fears YAML.
-Feel free to copy this idea and pretend it took forever.
+---
 
-If you want, I can also create:
+## 🧙 Author
 
+Built by **Slawinski** — Cloud Wizard, CI/CD Tamer, and Brave Warrior of YAML.
 
-a super serious corporate README,
-
-
-a full comedy README,
-
-
-or a fantasy storytelling version (“The Legend of the Azure VM”).
-
+*Feel free to steal this idea and pretend it took forever.*
