@@ -57,6 +57,8 @@ https://robertoslawinski.github.io/azure-webpage-17-11-25/
 
 ## 🧙 Author
 
-Built by **Slawinski** — Cloud Wizard, CI/CD Tamer, and Brave Warrior of YAML.
+Built by **Roberto Slawinski** — Cloud Wizard, CI/CD Tamer, and Brave Warrior of YAML.
+
+https://www.linkedin.com/in/robertos%C5%82awi%C5%84ski/
 
 *Feel free to steal this idea and pretend it took forever.*
