@@ -1,0 +1,27 @@
+name: CI/CD Website on VM do Azure
+
+on:
+  push:
+    branches: [ "main" ]   # branch padrão do repositório novo
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: TESTE     # mesmo nome do Environment
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Iniciar agente SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Copiar ficheiros para a VM
+        run: |
+          rsync -avz --delete ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/html/
+
+      - name: Reiniciar o Apache
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "sudo systemctl restart apache2"
